@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HotelKu - Sistem Informasi Perhotelan</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f8f7f4;
+  color: #263238;
+}
+
+header {
+  background: #102b3f;
+  color: white;
+  padding: 20px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: #e8bd79;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #e8bd79;
+}
+
+.hero {
+  min-height: 490px;
+  background:
+  linear-gradient(#102b3f99, #102b3f99),
+  url("https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600")
+  center/cover;
+  display: flex;
+  align-items: center;
+  padding: 60px 9%;
+  color: white;
+}
+
+.hero-content {
+  max-width: 650px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.btn {
+  display: inline-block;
+  background: #d6a85f;
+  color: #102b3f;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+section {
+  padding: 70px 8%;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.section-title h2 {
+  color: #102b3f;
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.section-title p {
+  color: #777;
+}
+
+.booking {
+  background: white;
+  max-width: 1050px;
+  margin: -35px auto 0;
+  position: relative;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 5px 25px #00000015;
+}
+
+.booking form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  align-items: end;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 8px;
+  font-family: inherit;
+}
+
+label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.booking button {
+  width: 100%;
+}
+
+.rooms {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.room-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px #00000010;
+}
+
+.room-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.room-info {
+  padding: 20px;
+}
+
+.room-info h3 {
+  color: #102b3f;
+  margin-bottom: 12px;
+}
+
+.room-info p {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.price {
+  color: #bd8a3c;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.facilities {
+  background: #102b3f;
+  color: white;
+}
+
+.facilities .section-title h2 {
+  color: white;
+}
+
+.facility-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.facility {
+  padding: 30px 10px;
+  border: 1px solid #ffffff30;
+  border-radius: 10px;
+}
+
+.facility span {
+  font-size: 35px;
+}
+
+.facility h3 {
+  margin: 12px 0;
+}
+
+.facility p {
+  font-size: 13px;
+  color: #ddd;
+}
+
+.about {
+  line-height: 1.9;
+  text-align: center;
+  max-width: 850px;
+  margin: auto;
+}
+
+.contact {
+  background: white;
+}
+
+.contact form {
+  max-width: 600px;
+  margin: auto;
+}
+
+.contact button {
+  margin-top: 15px;
+}
+
+footer {
+  background: #102b3f;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  line-height: 1.8;
+}
+
+#hasil {
+  margin-top: 20px;
+  padding: 15px;
+  background: #e8f5e9;
+  color: #205c36;
+  border-radius: 5px;
+  display: none;
+  line-height: 1.8;
+}
+
+.berhasil {
+  background: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+@media(max-width: 800px) {
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  nav a {
+    margin: 5px;
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .booking form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rooms {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .facility-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media(max-width: 500px) {
+  .booking form, .rooms, .facility-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">HOTELKU.</div>
+  <nav>
+    <a href="#home">Beranda</a>
+    <a href="#kamar">Kamar</a>
+    <a href="#fasilitas">Fasilitas</a>
+    <a href="#tentang">Tentang</a>
+    <a href="#kontak">Kontak</a>
+  </nav>
+</header>
+
+<!-- BERANDA -->
+<div class="hero" id="home">
+  <div class="hero-content">
+    <h1>Selamat Datang di HotelKu</h1>
+    <p>
+      Nikmati pengalaman menginap yang nyaman,
+      aman, dan terjangkau. Kami hadir untuk
+      memberikan pelayanan terbaik bagi masyarakat.
+    </p>
+    <a href="#pesan" class="btn">Pesan Kamar Sekarang</a>
+  </div>
+</div>
+
+<!-- FORM PEMESANAN -->
+<section class="booking" id="pesan">
+  <div class="section-title">
+    <h2>Reservasi Kamar</h2>
+    <p>Isi data berikut untuk melakukan pemesanan.</p>
+  </div>
+
+  <form id="bookingForm">
+    <div>
+      <label>Nama Lengkap</label>
+      <input type="text" id="nama" placeholder="Nama Anda" required>
+    </div>
+
+    <div>
+      <label>Check-in</label>
+      <input type="date" id="checkin" required>
+    </div>
+
+    <div>
+      <label>Check-out</label>
+      <input type="date" id="checkout" required>
+    </div>
+
+    <div>
+      <label>Jenis Kamar</label>
+      <select id="jenis">
+        <option value="250000">Standard - Rp250.000</option>
+        <option value="400000">Deluxe - Rp400.000</option>
+        <option value="650000">Suite - Rp650.000</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Jumlah Tamu</label>
+      <select id="tamu">
+        <option value="1">1 Orang</option>
+        <option value="2">2 Orang</option>
+        <option value="3">3 Orang</option>
+        <option value="4">4 Orang</option>
+      </select>
+    </div>
+
+    <div>
+      <button class="btn" type="submit">Pesan Sekarang</button>
+    </div>
+  </form>
+
+  <div id="hasil"></div>
+</section>
+
+<!-- DAFTAR KAMAR -->
+<section id="kamar">
+  <div class="section-title">
+    <h2>Pilihan Kamar</h2>
+    <p>Pilih kamar sesuai kebutuhan dan anggaran Anda.</p>
+  </div>
+
+  <div class="rooms">
+
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800">
+      <div class="room-info">
+        <h3>Standard Room</h3>
+        <p>Kamar nyaman dengan fasilitas tempat tidur, kamar mandi, AC, dan Wi-Fi.</p>
+        <div class="price">Rp250.000 / malam</div>
+        <a href="#pesan" class="btn">Pilih Kamar</a>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800">
+      <div class="room-info">
+        <h3>Deluxe Room</h3>
+        <p>Kamar lebih luas dengan interior modern, televisi, AC, dan fasilitas tambahan.</p>
+        <div class="price">Rp400.000 / malam</div>
+        <a href="#pesan" class="btn">Pilih Kamar</a>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800">
+      <div class="room-info">
+        <h3>Suite Room</h3>
+        <p>Kamar premium dengan ruang santai, tempat tidur luas, dan fasilitas eksklusif.</p>
+        <div class="price">Rp650.000 / malam</div>
+        <a href="#pesan" class="btn">Pilih Kamar</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FASILITAS -->
+<section class="facilities" id="fasilitas">
+  <div class="section-title">
+    <h2>Fasilitas Hotel</h2>
+    <p>Kenyamanan menjadi prioritas utama kami.</p>
+  </div>
+
+  <div class="facility-grid">
+    <div class="facility">
+      <span>📶</span>
+      <h3>Free Wi-Fi</h3>
+      <p>Internet gratis bagi pengunjung.</p>
+    </div>
+
+    <div class="facility">
+      <span>🏊</span>
+      <h3>Kolam Renang</h3>
+      <p>Fasilitas rekreasi untuk keluarga.</p>
+    </div>
+
+    <div class="facility">
+      <span>🍽️</span>
+      <h3>Restoran</h3>
+      <p>Menyediakan berbagai pilihan makanan.</p>
+    </div>
+
+    <div class="facility">
+      <span>🚗</span>
+      <h3>Parkir</h3>
+      <p>Area parkir untuk kendaraan pengunjung.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TENTANG -->
+<section id="tentang">
+  <div class="section-title">
+    <h2>Tentang HotelKu</h2>
+  </div>
+
+  <div class="about">
+    <p>
+      HotelKu merupakan konsep sistem informasi
+      perhotelan berbasis website yang dirancang
+      untuk mempermudah masyarakat memperoleh
+      informasi mengenai penginapan.
+
+      Dengan adanya sistem ini, masyarakat dapat
+      melihat pilihan kamar, mengetahui harga,
+      mengakses informasi fasilitas, dan melakukan
+      pemesanan secara online.
+
+      Sistem ini juga menjadi sarana promosi digital
+      untuk membantu meningkatkan pelayanan
+      dan daya saing industri perhotelan.
+    </p>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section class="contact" id="kontak">
+  <div class="section-title">
+    <h2>Hubungi Kami</h2>
+    <p>Silakan kirim pesan atau pertanyaan kepada kami.</p>
+  </div>
+
+  <form id="contactForm">
+    <label>Nama</label>
+    <input type="text" placeholder="Masukkan nama" required>
+
+    <label>Email</label>
+    <input type="email" placeholder="Masukkan email" required>
+
+    <label>Pesan</label>
+    <textarea rows="5" placeholder="Tulis pesan Anda" required></textarea>
+
+    <button type="submit" class="btn">Kirim Pesan</button>
+  </form>
+</section>
+
+<footer>
+  <h3>HOTELKU.</h3>
+  <p>Sistem Informasi dan Pemesanan Hotel Berbasis Website</p>
+  <p>© 2026 HotelKu. Proyek Sistem Informasi Perhotelan.</p>
+</footer>
+
+<script>
+
+// FORMAT RUPIAH
+const formatRupiah = (angka) => angka.toLocaleString("id-ID", {
+  style: "currency",
+  currency: "IDR",
+  maximumFractionDigits: 0
+});
+
+// MENGAMANKAN INPUT NAMA
+function escapeHTML(str) {
+  return str.replace(/[&<>"']/g, function(char) {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    }[char];
+  });
+}
+
+// RIWAYAT TRANSAKSI
+const riwayatTransaksi = [];
+
+function tampilkanRiwayat() {
+  const area = document.getElementById("daftarRiwayat");
+
+  if (riwayatTransaksi.length === 0) {
+    area.innerHTML = "<p>Belum ada transaksi.</p>";
+    return;
+  }
+
+  area.innerHTML = riwayatTransaksi.map(function(trx) {
+    return `
+      <div style="border:1px solid #d8e6dc;padding:15px;border-radius:8px;margin-top:12px;background:#f7fff8;">
+        <p><b>HotelKu - Pembayaran Berhasil</b></p>
+        <p>Kode transaksi: ${trx.kode}</p>
+        <p>Nama: ${escapeHTML(trx.nama)}</p>
+        <p>Metode: ${trx.metode}</p>
+        <p>Nomor tujuan: ${trx.nomor}</p>
+        <p>Total: ${formatRupiah(trx.total)}</p>
+        <p>Tanggal: ${trx.tanggal}</p>
+        <p style="color:green;font-weight:bold;">Status: SUKSES</p>
+      </div>
+    `;
+  }).join("");
+}
+
+// PROSES PEMESANAN
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const nama = document.getElementById("nama").value.trim();
+  const masuk = document.getElementById("checkin").value;
+  const keluar = document.getElementById("checkout").value;
+  const harga = Number(document.getElementById("jenis").value);
+  const tamu = document.getElementById("tamu").value;
+
+  const tanggalMasuk = new Date(masuk + "T00:00:00");
+  const tanggalKeluar = new Date(keluar + "T00:00:00");
+
+  const malam = Math.round((tanggalKeluar - tanggalMasuk) / 86400000);
+
+  if (!nama) {
+    alert("Masukkan nama lengkap!");
+    return;
+  }
+
+  if (!masuk || !keluar || malam <= 0) {
+    alert("Tanggal check-out harus setelah check-in!");
+    return;
+  }
+
+  const total = harga * malam;
+  const kodePesanan = "HK-" + Date.now().toString().slice(-8);
+
+  const namaKamar = harga === 250000 ? "Standard Room" :
+                    harga === 400000 ? "Deluxe Room" : "Suite Room";
+
+  const hasil = document.getElementById("hasil");
+  hasil.style.display = "block";
+
+  hasil.innerHTML = `
+    <h3>Detail Pemesanan</h3>
+    <p><b>Kode Pesanan:</b> ${kodePesanan}</p>
+    <p><b>Nama:</b> ${escapeHTML(nama)}</p>
+    <p><b>Check-in:</b> ${masuk}</p>
+    <p><b>Check-out:</b> ${keluar}</p>
+    <p><b>Jenis kamar:</b> ${namaKamar}</p>
+    <p><b>Jumlah tamu:</b> ${tamu} orang</p>
+    <p><b>Lama menginap:</b> ${malam} malam</p>
+    <p><b>Total pembayaran:</b> ${formatRupiah(total)}</p>
+    <p id="statusPesanan"><b>Status pemesanan:</b> Menunggu pembayaran</p>
+
+    <div id="pembayaran" style="margin-top:20px;padding:20px;background:#fff;border:1px solid #ddd;border-radius:8px;">
+      <h3>Pembayaran</h3>
+      <p>Pilih metode pembayaran yang ingin digunakan.</p>
+
+      <label for="metodeBayar">Metode Pembayaran</label>
+      <select id="metodeBayar">
+        <option value="DANA">DANA</option>
+        <option value="OVO">OVO</option>
+        <option value="GoPay">GoPay</option>
+        <option value="Transfer Bank">Transfer Bank</option>
+        <option value="Bayar di Hotel">Bayar di Hotel</option>
+      </select>
+
+      <div id="detailPembayaran" style="margin-top:15px;padding:15px;background:#f4f7fa;border-radius:8px;">
+        <p><b>Tujuan pembayaran:</b> <span id="namaTujuan">DANA</span></p>
+        <p style="font-size:22px;font-weight:bold;color:#102b3f;" id="nomorTujuan">081234567890</p>
+        <p><b>Atas nama:</b> HOTELKU</p>
+        <p><b>Jumlah yang harus dibayar:</b> ${formatRupiah(total)}</p>
+      </div>
+
+      <button class="btn" type="button" id="btnBayar" style="margin-top:15px;">
+        Saya Sudah Membayar
+      </button>
+
+      <div id="statusBayar" style="margin-top:15px;"></div>
+    </div>
+
+    <div id="riwayatTransaksi" style="margin-top:25px;">
+      <h3>Riwayat Transaksi</h3>
+      <div id="daftarRiwayat"><p>Belum ada transaksi.</p></div>
+    </div>
+  `;
+
+  const metodeBayar = document.getElementById("metodeBayar");
+  const namaTujuan = document.getElementById("namaTujuan");
+  const nomorTujuan = document.getElementById("nomorTujuan");
+  const statusBayar = document.getElementById("statusBayar");
+  const btnBayar = document.getElementById("btnBayar");
+
+  // MENGUBAH NOMOR BERDASARKAN METODE PEMBAYARAN
+  function updateMetode() {
+    const metode = metodeBayar.value;
+
+    namaTujuan.textContent = metode;
+
+    if (metode === "Transfer Bank") {
+      nomorTujuan.textContent = "1234567890 (Nomor rekening)";
+    } else if (metode === "Bayar di Hotel") {
+      nomorTujuan.textContent = "Pembayaran di resepsionis hotel";
+    } else {
+      nomorTujuan.textContent = "081234567890";
+    }
+
+    statusBayar.innerHTML = "";
+
+    btnBayar.disabled = metode === "Bayar di Hotel";
+    btnBayar.textContent = metode === "Bayar di Hotel"
+      ? "Bayar Saat Check-in"
+      : "Saya Sudah Membayar";
+  }
+
+  metodeBayar.addEventListener("change", updateMetode);
+  updateMetode();
+
+  // KONFIRMASI PEMBAYARAN
+  btnBayar.addEventListener("click", function() {
+    const metode = metodeBayar.value;
+
+    const nomor = metode === "Transfer Bank"
+      ? "1234567890"
+      : "081234567890";
+
+    const tanggal = new Date().toLocaleString("id-ID");
+
+    const transaksi = {
+      kode: "TRX-" + Date.now().toString().slice(-8),
+      nama: nama,
+      metode: metode,
+      nomor: nomor,
+      total: total,
+      tanggal: tanggal
+    };
+
+    riwayatTransaksi.unshift(transaksi);
+
+    statusBayar.innerHTML = `
+      <div class="berhasil">
+        <h3>✓ Pembayaran Berhasil</h3>
+        <p>Kode transaksi: ${transaksi.kode}</p>
+        <p>Metode pembayaran: ${metode}</p>
+        <p>Total pembayaran: ${formatRupiah(total)}</p>
+        <p>Status: <b>SUKSES</b></p>
+      </div>
+    `;
+
+    document.getElementById("statusPesanan").innerHTML =
+      "<b>Status pemesanan:</b> Pembayaran berhasil";
+
+    btnBayar.disabled = true;
+    btnBayar.textContent = "Pembayaran Selesai";
+    metodeBayar.disabled = true;
+
+    tampilkanRiwayat();
+
+    document.getElementById("riwayatTransaksi").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+
+  hasil.scrollIntoView({ behavior: "smooth" });
+});
+
+// FORM KONTAK
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  alert("Terima kasih! Pesan berhasil dikirim.");
+  this.reset();
+});
+
+</script>
+
+</body>
+</html>
